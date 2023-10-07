@@ -51,22 +51,29 @@ public class Main {
         Elements classHazard = doc.getElementsByClass("hazard-rating-container");
 
         String data = classDetails.get(0).toString();
+        String tempData = classDetails.get(3).toString();
         String harzardData = classHazard.get(0).toString();
 
 
-        Pattern snowAndTempPattern = Pattern.compile("\\d+");
+        Pattern snowAndWindPattern = Pattern.compile("\\d+");
+        Pattern tempPattern = Pattern.compile("\\d+");
         Pattern windDirectionPattern = Pattern.compile("/NW|NE|SE|SW|E|W|N|S/gm");
         Pattern hazardRatingPattern = Pattern.compile("High|Considerable|Moderate|Low|None|No Rating");
 
 
 
-        Matcher snowAndTempMatcher = snowAndTempPattern.matcher(data);
+        Matcher snowAndTempMatcher = snowAndWindPattern.matcher(data);
+        Matcher tempMatcher = tempPattern.matcher(tempData);
         Matcher windDirectionMatcher = windDirectionPattern.matcher(data);
         Matcher hazardRatingMatcher = hazardRatingPattern.matcher(harzardData);
+
 
         while (snowAndTempMatcher.find()) {
             valuesToReturn.add(snowAndTempMatcher.group());
 
+        }
+        if(tempMatcher.find()){
+            valuesToReturn.add(tempMatcher.group());
         }
         if(windDirectionMatcher.find()) {
             valuesToReturn.add(windDirectionMatcher.group());
