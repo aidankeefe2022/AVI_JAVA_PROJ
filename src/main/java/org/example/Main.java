@@ -9,9 +9,6 @@ import org.jsoup.select.Elements;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.ResultSet;
-import java.sql.PreparedStatement;
-import java.sql.Statement;
 import java.sql.*;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
