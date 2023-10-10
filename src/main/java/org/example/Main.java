@@ -24,38 +24,6 @@ import java.time.LocalDate;
 public class Main {
 
     public static void main(String[] args){
-        DB db = new DB();
-        String[] str = {"https://www.mtavalanche.com/forecast/bridgers",
-                "https://www.mtavalanche.com/forecast/northern-gallatin",
-                "https://www.mtavalanche.com/forecast/northern-madison",
-                "https://www.mtavalanche.com/forecast/southern-madison",
-                "https://www.mtavalanche.com/forecast/southern-gallatin",
-                "https://www.mtavalanche.com/forecast/cooke-city"};
-        String[] tableNames = {"Bridger", "CookeCity", "NorthernMadisons", "NorthernGallitins", "SouthernMasisons", "SouthernGallatins"};
-        int i = 0;
-                for(String URL : str) {
-                    List<String> aviData = parseData(makeConnection(URL));
-                    System.out.println(aviData);
-                    if (aviData.size() == 6) {
-                        try {
-                            try (Connection conn = db.connect()) {
-                                PreparedStatement preparedStatement = conn.prepareStatement("INSERT INTO " + tableNames[i++] + " (NEW_SNOW,TEMP,HIGH_WIND,LOW_WIND,WIND_DIRECTION,HAZARD_RATING,DATE) values (?,?,?,?,?,?,current_date)");
-                                preparedStatement.setString(1, aviData.get(0));
-                                preparedStatement.setString(2, aviData.get(3));
-                                preparedStatement.setString(3, aviData.get(2));
-                                preparedStatement.setString(4, aviData.get(1));
-                                preparedStatement.setString(5, aviData.get(4));
-                                preparedStatement.setString(6, aviData.get(5));
-                                preparedStatement.executeUpdate();
-
-                            }
-
-                        } catch (SQLException e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-                }
 
 
 
@@ -98,7 +66,7 @@ public class Main {
         finder(tempMatcher,valuesToReturn);
         finder(windDirectionMatcher,valuesToReturn);
         finder(hazardRatingMatcher,valuesToReturn);
-        System.out.println(valuesToReturn);
+
 
 
 
@@ -112,6 +80,44 @@ public class Main {
             list.add(m.group());
         }
 
+    }
+
+    private static boolean insertNewData(){
+        DB db = new DB();
+        String[] str = {"https://www.mtavalanche.com/forecast/bridgers",
+                "https://www.mtavalanche.com/forecast/northern-gallatin",
+                "https://www.mtavalanche.com/forecast/northern-madison",
+                "https://www.mtavalanche.com/forecast/southern-madison",
+                "https://www.mtavalanche.com/forecast/southern-gallatin",
+                "https://www.mtavalanche.com/forecast/cooke-city"};
+        String[] tableNames = {"Bridger", "CookeCity", "NorthernMadisons", "NorthernGallitins", "SouthernMasisons", "SouthernGallatins"};
+        int i = 0;
+        for(String URL : str) {
+            List<String> aviData = parseData(makeConnection(URL));
+            System.out.println(aviData);
+            if (aviData.size() == 6) {
+                try {
+                    try (Connection conn = db.connect()) {
+                        PreparedStatement preparedStatement = conn.prepareStatement("INSERT INTO " + tableNames[i++] + " (NEW_SNOW,TEMP,HIGH_WIND,LOW_WIND,WIND_DIRECTION,HAZARD_RATING,DATE) values (?,?,?,?,?,?,current_date)");
+                        preparedStatement.setString(1, aviData.get(0));
+                        preparedStatement.setString(2, aviData.get(3));
+                        preparedStatement.setString(3, aviData.get(2));
+                        preparedStatement.setString(4, aviData.get(1));
+                        preparedStatement.setString(5, aviData.get(4));
+                        preparedStatement.setString(6, aviData.get(5));
+                        preparedStatement.executeUpdate();
+
+                    }
+
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                    return false;
+                }
+            }
+
+        }
+        return true;
     }
 
 }
