@@ -1,20 +1,14 @@
 package org.example;
 
 import org.jsoup.Jsoup;
-import org.jsoup.HttpStatusException;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-
-
 import java.io.IOException;
-import java.net.URL;
 import java.sql.*;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 import java.util.ArrayList;
 import java.util.List;
-import java.time.LocalDate;
 
 // Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
 // then press Enter. You can now see whitespace characters in your code.
