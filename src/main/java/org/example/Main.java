@@ -1,5 +1,6 @@
 package org.example;
-
+import spark.Response;
+import spark.Spark;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -9,12 +10,15 @@ import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 import java.util.ArrayList;
 import java.util.List;
+import java.lang.StringBuilder;
 
 // Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
 // then press Enter. You can now see whitespace characters in your code.
 public class Main {
 
     public static void main(String[] args){
+        WEB web = new WEB();
+        web.WebsiteInit();
 
 
 
@@ -72,6 +76,9 @@ public class Main {
         }
 
     }
+
+
+
 
     private static boolean insertNewData(){
         DB db = new DB();
