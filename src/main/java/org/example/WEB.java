@@ -27,7 +27,6 @@ public class WEB {
            res.header("Content-Type", "Text-Text");
            DB db = new DB();
            StringBuilder sb = new StringBuilder();
-
            try(Connection conn = db.connect();
                PreparedStatement BridgerStatement = conn.prepareStatement("SELECT * from CookeCity")){
                ResultSet set = BridgerStatement.executeQuery();
@@ -40,7 +39,6 @@ public class WEB {
            res.header("Content-Type", "Text-Text");
            DB db = new DB();
            StringBuilder sb = new StringBuilder();
-
            try(Connection conn = db.connect(); PreparedStatement BridgerStatement = conn.prepareStatement("SELECT * from NorthernGallatins")){
                ResultSet set = BridgerStatement.executeQuery();
                formater(sb,set);
@@ -67,7 +65,6 @@ public class WEB {
            res.header("Content-Type", "Text-Text");
            DB db = new DB();
            StringBuilder sb = new StringBuilder();
-
            try(Connection conn = db.connect();
                PreparedStatement BridgerStatement = conn.prepareStatement("SELECT * from NorthernMadisons")){
                ResultSet set = BridgerStatement.executeQuery();
@@ -81,7 +78,6 @@ public class WEB {
            res.header("Content-Type", "Text-Text");
            DB db = new DB();
            StringBuilder sb = new StringBuilder();
-
            try(Connection conn = db.connect();
                PreparedStatement BridgerStatement = conn.prepareStatement("SELECT * from SouthernMadisons")){
                ResultSet set = BridgerStatement.executeQuery();
@@ -92,7 +88,7 @@ public class WEB {
 
        });
        Spark.get("/", ((request, response) ->
-               "<p><a href='/NorthernGallitins'>Northern Gallatins</a></p>" +
+               "<p><a href='/NorthernGallatins'>Northern Gallatins</a></p>" +
                        "<p><a href='/SouthernGallatins'>Southern Gallatins</a></p>" +
                        "<p><a href='/NorthernMadisons'>Northern Madisons</a></p>" +
                        "<p><a href='/SouthernMadisons'>Southern Madisons</a></p>" +
