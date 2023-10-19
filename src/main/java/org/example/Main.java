@@ -16,8 +16,8 @@ public class Main {
     public static void main(String[] args){
         DateGetter dateGetter = new DateGetter();
         dateGetter.insertNewData();
-        WEB web = new WEB();
-        web.WebsiteInit();
+//        WEB web = new WEB();
+//        web.WebsiteInit();
     }
 
 

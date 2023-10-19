@@ -87,6 +87,7 @@ public class WEB {
 
 
        });
+
        Spark.get("/", ((request, response) ->
                "<p><a href='/NorthernGallatins'>Northern Gallatins</a></p>" +
                        "<p><a href='/SouthernGallatins'>Southern Gallatins</a></p>" +

@@ -84,11 +84,11 @@ public class DateGetter {
         int i = 0;
         for(String URL : str) {
             List<String> aviData = parseData(makeConnection(URL));
-            System.out.println(aviData);
             if (aviData.size() == 6) {
                 try {
                     try (Connection conn = db.connect()) {
-                        PreparedStatement preparedStatement = conn.prepareStatement("INSERT INTO " + tableNames[i++] + " (NEW_SNOW,TEMP,HIGH_WIND,LOW_WIND,WIND_DIRECTION,HAZARD_RATING,DATE) values (?,?,?,?,?,?,current_date)");
+                        PreparedStatement preparedStatement = conn.prepareStatement("INSERT INTO "  + tableNames[i] +" (NEW_SNOW,TEMP,HIGH_WIND,LOW_WIND,WIND_DIRECTION,HAZARD_RATING,DATE) values (?,?,?,?,?,?,current_date)");
+
                         preparedStatement.setString(1, aviData.get(0));
                         preparedStatement.setString(2, aviData.get(3));
                         preparedStatement.setString(3, aviData.get(2));
@@ -100,11 +100,14 @@ public class DateGetter {
                     }
 
 
+
                 } catch (SQLException e) {
                     System.out.println("entry already exists");
 
                 }
+
             }
+            i++;
 
         }
         return true;
