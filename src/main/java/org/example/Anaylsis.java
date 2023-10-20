@@ -5,9 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.function.Predicate;
+
 
 public class Anaylsis {
 
@@ -22,10 +21,8 @@ public class Anaylsis {
         int newSnowSum =0;
         try {
             try (Connection conn = db.connect();
-                 PreparedStatement ps = conn.prepareStatement("SELECT NEW_SNOW, WIND_DIRECTION, HIGH_WIND, DATE FROM ? WHERE DATE > date('now','-7 day')");
-                 PreparedStatement ps2 = conn.prepareStatement("SELECT SUM(NEW_SNOW) AS NSS FROM ? WHERE DATE > date('now','-7 day')")) {
-                ps.setString(1, tableName);
-                numberOfResults = ps.executeUpdate();
+                 PreparedStatement ps = conn.prepareStatement("SELECT NEW_SNOW, WIND_DIRECTION, HIGH_WIND, DATE FROM " +tableName+" WHERE DATE > date('now','-7 day')");
+                 PreparedStatement ps2 = conn.prepareStatement("SELECT SUM(NEW_SNOW) AS NSS FROM "+tableName+" WHERE DATE > date('now','-7 day')")) {
                 ResultSet rs = ps.executeQuery();
                 ResultSet rs1 = ps2.executeQuery();
                 while (rs.next()) {
@@ -33,16 +30,17 @@ public class Anaylsis {
                     windDirection.add(rs.getString("WIND_DIRECTION"));
                     highWind.add(rs.getInt("HIGH_WIND"));
                     dateArrayList.add(rs.getString("DATE"));
+                    numberOfResults++;
                 }
                 newSnowSum = rs1.getInt("NSS");
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            return new StringBuilder();
         }
         int i = 0;
-        while(snow.get(i) != null){
+        while(i <= snow.size()-1 ){
             if(snow.get(i) >= 2 && (highWind.get(i) >= 15 && highWind.get(i) <= 40)){
-                retString.append( "there are signs of wind slab formation on: " + dateArrayList.get(i) + " with new snow that day measuring " + snow.get(i) + "with wind slab most likley on " + windSwitcher(windDirection.get(i) + "\n"));
+                retString.append( "there are signs of wind slab formation on: " + dateArrayList.get(i) + " with new snow that day measuring " + snow.get(i) + " inches with wind slab most likley on " + windSwitcher(windDirection.get(i)) + "\n");
             }
             i++;
         }

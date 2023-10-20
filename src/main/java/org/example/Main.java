@@ -16,8 +16,10 @@ public class Main {
     public static void main(String[] args){
         DateGetter dateGetter = new DateGetter();
         dateGetter.insertNewData();
-//        WEB web = new WEB();
-//        web.WebsiteInit();
+        Anaylsis anal = new Anaylsis();
+        System.out.println(anal.windLoaded("CookeCity"));
+        WEB web = new WEB();
+        web.WebsiteInit();
     }
 
 

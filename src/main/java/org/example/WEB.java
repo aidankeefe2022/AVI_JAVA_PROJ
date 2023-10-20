@@ -17,7 +17,7 @@ public class WEB {
 
            try(Connection conn = db.connect(); PreparedStatement BridgerStatement = conn.prepareStatement("SELECT * from Bridger")){
                ResultSet set = BridgerStatement.executeQuery();
-               formater(sb,set);
+               formater(sb,set,"Bridger");
            }
            return sb.toString();
 
@@ -30,7 +30,7 @@ public class WEB {
            try(Connection conn = db.connect();
                PreparedStatement BridgerStatement = conn.prepareStatement("SELECT * from CookeCity")){
                ResultSet set = BridgerStatement.executeQuery();
-               formater(sb,set);
+               formater(sb,set,"CookeCity");
 
            }
            return sb.toString();
@@ -41,7 +41,7 @@ public class WEB {
            StringBuilder sb = new StringBuilder();
            try(Connection conn = db.connect(); PreparedStatement BridgerStatement = conn.prepareStatement("SELECT * from NorthernGallatins")){
                ResultSet set = BridgerStatement.executeQuery();
-               formater(sb,set);
+               formater(sb,set,"NorthernGallatins");
            }
            return sb.toString();
 
@@ -54,7 +54,7 @@ public class WEB {
 
            try(Connection conn = db.connect(); PreparedStatement BridgerStatement = conn.prepareStatement("SELECT * from SouthernGallatins")){
                ResultSet set = BridgerStatement.executeQuery();
-               formater(sb,set);
+               formater(sb,set,"SouthernGallatins");
            }
 
            return sb.toString();
@@ -68,7 +68,7 @@ public class WEB {
            try(Connection conn = db.connect();
                PreparedStatement BridgerStatement = conn.prepareStatement("SELECT * from NorthernMadisons")){
                ResultSet set = BridgerStatement.executeQuery();
-               formater(sb,set);
+               formater(sb,set,"NorthernMadisons");
            }
            return sb.toString();
 
@@ -81,7 +81,7 @@ public class WEB {
            try(Connection conn = db.connect();
                PreparedStatement BridgerStatement = conn.prepareStatement("SELECT * from SouthernMadisons")){
                ResultSet set = BridgerStatement.executeQuery();
-               formater(sb,set);
+               formater(sb,set,"SouthernMadisons");
            }
            return sb.toString();
 
@@ -97,7 +97,7 @@ public class WEB {
                        "<p><a href='/CookeCity'>Cooke City</a></p>"));
 
    }
-    private void formater(StringBuilder sb, ResultSet set){
+    private void formater(StringBuilder sb, ResultSet set, String tableName){
         try {
             sb.append("DATE\tNEW_SNOW\tHIGH_WIND\tLOW_WIND\tWIND_DIRECTION\tHAZRAD_RATING\tTEMP\n\n");
             while (set.next()) {
@@ -119,6 +119,8 @@ public class WEB {
         }catch (SQLException e){
             e.printStackTrace();
         }
+        Anaylsis anal = new Anaylsis();
+        sb.append(anal.windLoaded(tableName));
 
     }
 }
