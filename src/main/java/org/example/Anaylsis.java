@@ -37,11 +37,19 @@ public class Anaylsis {
         } catch (SQLException e) {
             return new StringBuilder();
         }
+
+
         int i = 0;
         while(i <= snow.size()-1 ){
-            if(snow.get(i) >= 2 && (highWind.get(i) >= 15 && highWind.get(i) <= 40)){
+            if ((i-1) >= 0){
+                if(snow.get(i) + snow.get(i-1) >= 2 && (highWind.get(i) >= 15 && highWind.get(i) <= 40) ){
+                    retString.append( "there are signs of wind slab formation on: " + dateArrayList.get(i) + " with new snow in the last two days measuring " + snow.get(i) + snow.get(i-1) + " inches with wind slab most likley on " + windSwitcher(windDirection.get(i)) + "\n");
+                }
+            }else if(snow.get(i) >= 2 && (highWind.get(i) >= 15 && highWind.get(i) <= 40) ){
                 retString.append( "there are signs of wind slab formation on: " + dateArrayList.get(i) + " with new snow that day measuring " + snow.get(i) + " inches with wind slab most likley on " + windSwitcher(windDirection.get(i)) + "\n");
             }
+            
+
             i++;
         }
          if (retString.length() == 0){
