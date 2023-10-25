@@ -11,8 +11,13 @@ public class Main {
         WEB web = new WEB();
         int choice = 1;
         while(choice >= 1 && choice <= 3) {
-            System.out.println("1. get new data \n 2. analysis \n 3. start web server \n 4. end \n");
-            choice = input.nextInt();
+            if (args.length == 0) {
+                System.out.println("1. get new data \n 2. analysis \n 3. start web server \n 4. end \n");
+                choice = input.nextInt();
+            }else{
+
+
+            }
             switch (choice) {
                 case (1):
                     dateGetter.insertNewData();
@@ -22,6 +27,9 @@ public class Main {
                     break;
                 case (3):
                     web.WebsiteInit();
+                    break;
+                default:
+                    break;
 
 
             }
