@@ -11,10 +11,7 @@ public class Main {
         WEB web = new WEB();
         int choice = 1;
         while(choice >= 1 && choice <= 3) {
-            System.out.println("1. get new data \n" +
-                    "2. analysis \n" +
-                    "3. start web server \n " +
-                    "4. end \n");
+            System.out.println("1. get new data \n 2. analysis \n 3. start web server \n 4. end \n");
             choice = input.nextInt();
             switch (choice) {
                 case (1):
