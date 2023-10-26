@@ -33,7 +33,6 @@ public class DateGetter {
 
         String data = classDetails.get(0).toString();
         String tempData = classDetails.get(3).toString();
-        System.out.println(tempData);
         String hazardData = classHazard.get(0).toString();
 
         Pattern snowAndWindPattern = Pattern.compile("\\d+");
