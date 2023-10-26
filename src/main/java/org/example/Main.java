@@ -34,6 +34,9 @@ public class Main {
 
 
             }
+            if(args.length != 0){
+                choice = 100;
+            }
         }
 
 
