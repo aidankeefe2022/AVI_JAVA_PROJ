@@ -15,9 +15,6 @@ public class Main {
             if (args.length == 0) {
                 System.out.println("1. get new data \n 2. analysis \n 3. start web server \n 4. end \n");
                 choice = input.nextInt();
-            }else{
-
-
             }
             switch (choice) {
                 case (1):
