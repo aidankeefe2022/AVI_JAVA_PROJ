@@ -7,7 +7,6 @@ public class Main {
 
     public static void main(String[] args){
         Scanner input = new Scanner(System.in);
-        DateGetter dateGetter = new DateGetter();
         Anaylsis anal = new Anaylsis();
         WEB web = new WEB();
         int choice = 1;
@@ -18,7 +17,16 @@ public class Main {
             }
             switch (choice) {
                 case (1):
-                    dateGetter.insertNewData();
+                    Thread Bridger = new Thread(new BridgerRunnable());
+                    Thread CookeCity = new Thread(new CookeCityRunnable());
+                    Thread SoGal = new Thread(new SouthernGallatinRunnable());
+                    Thread NoGal = new Thread(new NorthernGallatinsRunnable());
+                    Bridger.start();
+                    CookeCity.start();
+                    SoGal.start();
+                    NoGal.start();
+
+
                     break;
                 case (2):
                     System.out.println(anal.windLoaded("CookeCity"));
@@ -34,6 +42,7 @@ public class Main {
             if(args.length != 0){
                 choice = 100;
             }
+
         }
 
 

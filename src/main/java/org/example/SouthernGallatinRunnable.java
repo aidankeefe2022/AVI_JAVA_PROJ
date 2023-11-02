@@ -3,8 +3,7 @@ package org.example;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
-import java.lang.Thread;
-import java.util.concurrent.locks.ReentrantLock;
+
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,9 +13,22 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class DateGetter {
+public class SouthernGallatinRunnable implements Runnable{
+    static DB db;
+    static String URL;
+    static String Table;
 
+    public SouthernGallatinRunnable(){
+        SouthernGallatinRunnable.Table = "SouthernGallatins";
+        SouthernGallatinRunnable.URL ="https://www.mtavalanche.com/forecast/southern-gallatin";
+        SouthernGallatinRunnable.db = new DB();
 
+    }
+
+    @Override
+    public void run() {
+        insertNewData(URL,Table);
+    }
     private Document makeConnection(String URL) {
         try {
             return Jsoup.connect(URL).get();
@@ -74,13 +86,12 @@ public class DateGetter {
 
     public boolean insertNewData(String URL, String Table) {
 
-        DB db = new DB();
         List<String> aviData = parseData(makeConnection(URL));
         if (aviData.size() == 6) {
             try {
 
-                try (Connection conn = db.connect()) {
-                    PreparedStatement preparedStatement = conn.prepareStatement("INSERT INTO " + Table + " (NEW_SNOW,TEMP,HIGH_WIND,LOW_WIND,WIND_DIRECTION,HAZARD_RATING,DATE) values (?,?,?,?,?,?,current_date)");
+                try (Connection conn = db.connect();
+                    PreparedStatement preparedStatement = conn.prepareStatement("INSERT INTO " + Table + " (NEW_SNOW,TEMP,HIGH_WIND,LOW_WIND,WIND_DIRECTION,HAZARD_RATING,DATE) values (?,?,?,?,?,?,current_date)");){
 
                     preparedStatement.setString(1, aviData.get(0));
                     preparedStatement.setString(2, aviData.get(3));

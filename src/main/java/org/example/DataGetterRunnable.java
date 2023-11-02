@@ -3,8 +3,7 @@ package org.example;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
-import java.lang.Thread;
-import java.util.concurrent.locks.ReentrantLock;
+
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,9 +13,25 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class DateGetter {
+public class DataGetterRunnable implements Runnable{
 
 
+
+    static DB db;
+    static String URL;
+    static String Table;
+
+    public DataGetterRunnable(String urlInput, String tableInput){
+        DataGetterRunnable.Table = tableInput;
+        DataGetterRunnable.URL =urlInput;
+        db = new DB();
+
+    }
+
+    @Override
+    public void run() {
+        insertNewData(URL,Table);
+    }
     private Document makeConnection(String URL) {
         try {
             return Jsoup.connect(URL).get();
@@ -74,7 +89,6 @@ public class DateGetter {
 
     public boolean insertNewData(String URL, String Table) {
 
-        DB db = new DB();
         List<String> aviData = parseData(makeConnection(URL));
         if (aviData.size() == 6) {
             try {
@@ -104,4 +118,7 @@ public class DateGetter {
 
 
     }
+
+
+
 }
