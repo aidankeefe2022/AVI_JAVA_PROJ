@@ -10,7 +10,7 @@ public class Main {
         Anaylsis anal = new Anaylsis();
         WEB web = new WEB();
         int choice = 1;
-        while(choice >= 1 && choice <= 3) {
+        //while(choice >= 1 && choice <= 3) {
             if (args.length == 0) {
                 System.out.println("1. get new data \n 2. analysis \n 3. start web server \n 4. end \n");
                 choice = input.nextInt();
@@ -21,10 +21,14 @@ public class Main {
                     Thread CookeCity = new Thread(new CookeCityRunnable());
                     Thread SoGal = new Thread(new SouthernGallatinRunnable());
                     Thread NoGal = new Thread(new NorthernGallatinsRunnable());
+                    Thread NoMad = new Thread(new NorthernMadisonsRunnable());
+                    Thread SoMad = new Thread(new SouthernMadisonRunnable());
                     Bridger.start();
                     CookeCity.start();
                     SoGal.start();
                     NoGal.start();
+                    NoMad.start();
+                    SoMad.start();
 
 
                     break;
@@ -53,5 +57,5 @@ public class Main {
     }
 
 
-}
+//}
 

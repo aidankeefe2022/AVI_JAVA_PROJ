@@ -18,10 +18,10 @@ public class SouthernMadisonRunnable implements Runnable{
     static String URL;
     static String Table;
 
-    public SouthernMadisonRunnable(String urlInput, String tableInput){
-        SouthernMadisonRunnable.Table = tableInput;
-        SouthernMadisonRunnable.URL =urlInput;
-        SouthernMadisonRunnable.db = new DB();
+    public SouthernMadisonRunnable(){
+        Table = "SouthernMadisons";
+        URL = "https://www.mtavalanche.com/forecast/southern-madison";
+        db = new DB();
 
     }
 
@@ -90,8 +90,8 @@ public class SouthernMadisonRunnable implements Runnable{
         if (aviData.size() == 6) {
             try {
 
-                try (Connection conn = db.connect()) {
-                    PreparedStatement preparedStatement = conn.prepareStatement("INSERT INTO " + Table + " (NEW_SNOW,TEMP,HIGH_WIND,LOW_WIND,WIND_DIRECTION,HAZARD_RATING,DATE) values (?,?,?,?,?,?,current_date)");
+                try (Connection conn = db.connect();
+                    PreparedStatement preparedStatement = conn.prepareStatement("INSERT INTO " + Table + " (NEW_SNOW,TEMP,HIGH_WIND,LOW_WIND,WIND_DIRECTION,HAZARD_RATING,DATE) values (?,?,?,?,?,?,current_date)");){
 
                     preparedStatement.setString(1, aviData.get(0));
                     preparedStatement.setString(2, aviData.get(3));
